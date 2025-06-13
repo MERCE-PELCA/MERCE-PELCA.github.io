@@ -67,12 +67,19 @@
     }
     .example-actions {
       margin-top: 12px;
+      display: flex;
+      gap: 10px;
     }
     .example-actions a {
-      display: inline-block; margin-right: 10px;
-      padding: 6px 12px; border-radius: 4px;
-      font-size: .9rem; text-decoration: none;
-      transition: opacity .2s; color: #fff;
+      flex: 1;
+      display: inline-block;
+      text-align: center;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: opacity .2s;
+      color: #fff;
     }
     .btn-download { background: var(--download-btn); }
     .btn-download:hover { opacity: .8; }
@@ -83,6 +90,31 @@
       text-align: center; margin-top: 30px;
       border-top: 1px solid #d2d2d7; padding-top: 20px;
       color: var(--secondary); font-size: .85rem;
+    }
+
+    /* —————————————— R E S P O N S I V E —————————————— */
+    @media (max-width: 600px) {
+      .logo-top {
+        max-width: 80%;  /* logo plus petit */
+        margin-bottom: 20px;
+      }
+      .example-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .example-image {
+        flex: none;
+        max-width: 60%;
+        margin-bottom: 12px;
+      }
+      .example-actions {
+        flex-direction: column;
+      }
+      .example-actions a {
+        width: 100%;
+        margin: 4px 0;
+      }
     }
   </style>
 </head>
