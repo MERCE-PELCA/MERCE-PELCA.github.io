@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PELCA - Power Electronics Life Cycle Assessment</title>
+  <title>PELCA - Publications</title>
   <style>
     :root {
       --gradient-from: #7f82bc; /* PELCA violet */
@@ -116,6 +116,50 @@
         margin: 4px 0;
       }
     }
+
+    /* Bouton retour agrandi + hover rose */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;           /* plus d’espace intérieur */
+      border-radius: 16px;          /* un peu plus arrondi */
+      background-color: #f2f2f7;
+      color: var(--text);
+      font-size: 1rem;              /* texte un peu plus grand */
+      text-decoration: none;
+      transition: background-color .2s, color .2s;
+    }
+
+    .btn-back svg {
+      width: 16px;                  /* icône plus grande */
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Survol : fond rose et texte/icône blanc */
+    .btn-back:hover {
+      background-color: #e2a3b6;
+      color: #ffffff;
+    }
+
+    /* Rapproche le bouton du logo */
+    .logo-top {
+      margin: 0 auto 10px; /* avant c’était 0 auto 30px */
+    }
+
+    /* Crée un espace plus grand entre le bouton et le titre Publications */
+    .btn-back-container {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+
+
   </style>
 </head>
 <body>
@@ -128,110 +172,23 @@
       class="logo-top"
     />
 
-    <div class="links">
-      <!-- GitHub -->
-      <div class="link-item">
-        <a href="https://github.com/merce-fra/PELCA"
-           target="_blank" rel="noopener noreferrer" title="GitHub">
-          <img
-            src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg"
-            alt="GitHub"
-          />
-        </a>
-        <div class="icon-label">GitHub</div>
-      </div>
-
-      <!-- Publications -->
-      <div class="link-item">
-		  <a href="https://merce-pelca.github.io/publications.html"
-		     target="_blank" rel="noopener noreferrer" title="Publications">
-		    <img
-		      src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/book-open.svg"
-		      alt="Publications"
-		    />
-		  </a>
-		  <div class="icon-label">Publications</div>
-		</div>
-
-      <!-- Newsletter -->
-      <div class="link-item">
-        <a href="https://forms.office.com/e/TFM0s2G8ew"
-           target="_blank" rel="noopener noreferrer" title="Newsletter">
-          <img
-            src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg"
-            alt="Newsletter"
-          />
-        </a>
-        <div class="icon-label">Newsletter</div>
-      </div>
-
-      <!-- Mooc -->
-      <div class="link-item">
-        <a href="https://merce-pelca.github.io/mooc.html"
-           target="_blank" rel="noopener noreferrer" title="Mooc">
-          <img
-            src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/graduation-cap.svg"
-            alt="Mooc"
-          />
-        </a>
-        <div class="icon-label">Mooc</div>
-      </div>
+    <!-- Bouton Retour -->
+    <div class="btn-back-container">
+      <a href="https://merce-pelca.github.io" class="btn-back" title="Back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <span>Back</span>
+      </a>
     </div>
 
     <main>
-      <h2>Implemented Examples</h2>
+      <h2>Publications</h2>
+    </main>
 
-      <div class="example-item">
-        <img
-          src="https://www.mouser.fr/images/infineon/lrg/FS820R08A6P2BBPSA1_SPL_t.jpg"
-          alt="Inverter - FS820R08A6P2B"
-          class="example-image"
-        />
-        <div class="example-content">
-          <h3>Inverter – FS820R08A6P2B</h3>
-          <p>Add a description here.</p>
-          <div class="example-actions">
-            <a
-              href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.3/Input%20example/inputExample_v1.3.0_PowerModuleAndCapacitor.xlsx"
-              download
-              class="btn-download">
-              Download Example
-            </a>
-            <a
-              href="https://github.com/merce-fra/PELCA/tree/Release_PELCA_v1.3"
-              target="_blank" rel="noopener noreferrer"
-              class="btn-doc">
-              Documentation
-            </a>
-          </div>
-        </div>
-      </div>
+    En constructions
 
-      <div class="example-item">
-        <img
-          src="https://www.microchip.com/content/dam/mchp/mrt-dam/products/dpm/220714-dpm-photo-e-fuse-technology-demonstrator-board-angle-transparent.jpg"
-          alt="E-Fuse – MSCDR-EFUSE-006"
-          class="example-image"/>
 
-        <div class="example-content">
-          <h3>E-Fuse – MSCDR-EFUSE-006</h3>
-          <p>DC static circuit breaker – SiC MOSFET transistor protection. 800 V/30 A demonstrator; 2 × MSC025SMA120B4.</p>
-          <div class="example-actions">
-            <a
-              href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.3/Input%20example"
-              download
-              class="btn-download">
-              Download Example
-            </a>
-            <a
-              href="https://github.com/merce-fra/PELCA/tree/Release_PELCA_v1.3"
-              target="_blank" rel="noopener noreferrer"
-              class="btn-doc">
-              Documentation
-            </a>
-          </div>
-        </div>
-      </div>
     </main>
 
     <footer>
