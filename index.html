@@ -130,6 +130,19 @@
         width: 100%; margin: 4px 0;
       }
     }
+
+    /* masquer le style des liens dans le footer */
+    footer a {
+      color: inherit;         /* hérite de la couleur du footer */
+      text-decoration: none;  /* pas de soulignement */
+      cursor: default;        /* curseur normal */
+    }
+    footer a:hover {
+      color: inherit;         /* même couleur au survol */
+      text-decoration: none;  /* toujours pas de soulignement */
+    }
+
+
   </style>
 </head>
 <body>
@@ -249,10 +262,12 @@
     </main>
 
     <footer>
-      &copy; 2025 – <a href="#" onclick="openTraffic(); return false;">
-        Mitsubishi Electric R&D Centre Europe
-      </a> – <a href="https://merce-pelca.github.io/contact.html" rel="noopener" >All rights reserved</a>
+      &copy; 2025 – 
+      <a href="#" onclick="openTraffic(); return false;">Mitsubishi Electric R&D Centre Europe</a>
+      – 
+      <a href="https://merce-pelca.github.io/contact.html" rel="noopener">All rights reserved</a>
     </footer>
+
   </div>
 
   <script>
