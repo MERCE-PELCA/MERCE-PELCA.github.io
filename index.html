@@ -4,6 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PELCA - Power Electronics Life Cycle Assessment</title>
+
+  <!-- ————————— PWA : icônes et couleurs ————————— -->
+  <!-- Favicon desktop -->
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/first_image.png" />
+  <!-- Icône iOS “Add to Home Screen” -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/first_image.png" />
+  <!-- Couleur de la barre d’adresse Chrome (Android) -->
+  <meta name="theme-color" content="#7f82bc" />
+  <!-- iOS full‑screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="PELCA" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <!-- Manifest Android -->
+  <link rel="manifest" href="manifest.json" />
+  <!-- Windows tile -->
+  <meta name="msapplication-TileImage" content="icons/first_image.png" />
+  <meta name="msapplication-TileColor" content="#7f82bc" />
+  <!-- ———————————————————————————————— -->
+
   <style>
     :root {
       --gradient-from: #7f82bc; /* PELCA violet */
@@ -88,32 +107,27 @@
 
     footer {
       text-align: center; margin-top: 30px;
-      border-top: 1px solid #d2d2d7; padding-top: 20px;
+      border-top: 1px solid #d2d2e2; padding-top: 20px;
       color: var(--secondary); font-size: .85rem;
     }
 
     /* —————————————— R E S P O N S I V E —————————————— */
     @media (max-width: 600px) {
       .logo-top {
-        max-width: 80%;  /* logo plus petit */
-        margin-bottom: 20px;
+        max-width: 80%; margin-bottom: 20px;
       }
       .example-item {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: center; text-align: center;
       }
       .example-image {
-        flex: none;
-        max-width: 60%;
-        margin-bottom: 12px;
+        flex: none; max-width: 60%; margin-bottom: 12px;
       }
       .example-actions {
         flex-direction: column;
       }
       .example-actions a {
-        width: 100%;
-        margin: 4px 0;
+        width: 100%; margin: 4px 0;
       }
     }
   </style>
@@ -143,15 +157,15 @@
 
       <!-- Publications -->
       <div class="link-item">
-		  <a href="https://merce-pelca.github.io/publications.html"
-		     rel="noopener noreferrer" title="Publications">
-		    <img
-		      src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/book-open.svg"
-		      alt="Publications"
-		    />
-		  </a>
-		  <div class="icon-label">Publications</div>
-		</div>
+        <a href="https://merce-pelca.github.io/publications.html"
+           rel="noopener noreferrer" title="Publications">
+          <img
+            src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/book-open.svg"
+            alt="Publications"
+          />
+        </a>
+        <div class="icon-label">Publications</div>
+      </div>
 
       <!-- Mooc -->
       <div class="link-item">
@@ -176,10 +190,7 @@
         </a>
         <div class="icon-label">Newsletter</div>
       </div>
-
-
     </div>
-
 
     <main>
       <h2>Implemented Examples</h2>
@@ -192,7 +203,7 @@
         />
         <div class="example-content">
           <h3>Inverter – FS820R08A6P2B</h3>
-          <p>Add a description here.</p>
+          <p>A power-electronic system comprising an IGBT power module (750 V, 820 A) and a DC‑bus filter capacitor.</p>
           <div class="example-actions">
             <a
               href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.4/Input%20example/inputExample_v1.4.0_PowerModuleAndCapacitor.xlsx"
@@ -238,15 +249,14 @@
     </main>
 
     <footer>
-	  &copy; 2025 – 
-	  <a href="#"
-	     onclick="openTraffic(); return false;"
-	     style="color: inherit; text-decoration: none; cursor: default;">
-	    Mitsubishi Electric R&D Centre Europe
-	  </a>
-	  – All rights reserved
-	</footer>
-
+      &copy; 2025 – 
+      <a href="#"
+         onclick="openTraffic(); return false;"
+         style="color: inherit; text-decoration: none; cursor: default;">
+        Mitsubishi Electric R&D Centre Europe
+      </a>
+      – All rights reserved
+    </footer>
   </div>
 
   <script>
