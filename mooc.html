@@ -187,24 +187,93 @@
       }
     }
 
+	/* Container 2 colonnes pour Algorithm */ 
+	  .algorithm-info {
+	    flex: 1;
+	    min-width: 250px;
+	  }
+	  .btn-more-info {
+	    display: inline-block;
+	    padding: 8px 16px;
+	    border-radius: 4px;
+	    background: var(--gradient-from);
+	    color: #fff;
+	    text-decoration: none;
+	    font-size: 0.9rem;
+	    transition: opacity 0.2s;
+	  }
+	  .btn-more-info:hover {
+	    opacity: 0.8;
+	  }
+
+/* 1. Assurez-vous que le conteneur est en flex et centre verticalement ses enfants */
+#algorithm .algorithm-content {
+  display: flex;
+  align-items: center;   /* centre verticalement l’image et le bloc texte */
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 2. Colonnes de largeur égale (ou ajustez la proportion si besoin) */
+#algorithm .algorithm-text,
+#algorithm .algorithm-info {
+  flex: 1;               /* chaque colonne prend 50% de l’espace */
+}
+
+/* 3. Centre l’image dans sa colonne */
+#algorithm .algorithm-text {
+  display: flex;
+  justify-content: center;  /* centre horizontalement */
+  align-items: center;      /* centre verticalement */
+}
+
+/* 4. Adapte la taille de l’image */
+/* Override pour agrandir le schéma dans #algorithm */
+#algorithm .algorithm-text .example-image {
+  flex: none;           /* désactive le flex-basis à 25% */
+  max-height: none;     /* enlève la limite de hauteur */
+  width: 400px;         /* taille fixe ou adapte à ta convenance */
+  height: auto;         /* conserve les proportions */
+  object-fit: contain;  /* ne recadre pas l’image */
+}
+
+
+/* 5. (Optionnel) Pour que la colonne texte garde un bon padding */
+#algorithm .algorithm-info {
+  padding: 0 10px;
+}
+
 
   </style>
 </head>
 <body>
   <div class="floating-window">
-    <img src="https://rawcdn.githack.com/merce-fra/PELCA/Release_PELCA_v1.3/Images/first_image.png" alt="PELCA Logo" class="logo-top" />
+    <img src="https://rawcdn.githack.com/merce-fra/PELCA/Release_PELCA_v1.4/Images/first_image.png" alt="PELCA Logo" class="logo-top" />
     <div class="btn-back-container">
       <a href="https://merce-pelca.github.io" class="btn-back" title="Retour">← Retour</a>
     </div>
     <main>
       <h2>MOOC PELCA</h2>
+      <p class="info" style="font-size:0.95rem; margin-top:8px; font-style: italic;">
+        Videos were recorded in French but are also available in English via YouTube’s instant translation. Once the video has started, open Settings &gt; Audio track and select “English”.
+      </p>
 
       <section id="presentation" class="section">
         <h3>Introduction to PELCA</h3>
         <p class="description">PELCA (Power Electronics Life Cycle Assessment) is an open-source project aimed at assessing the environmental impact over the life cycle of modular and diagnosable power electronics systems. The integration of modularity and diagnosability aligns with circular economy principles, promoting practices such as maintenance, repair and reuse. This project provides a tool to calculate the environmental impacts associated with the manufacturing, usage, and replacement of power electronics products.</p>
         <details class="video-details">
-          <summary>Watch the video</summary>
-          <p class="coming-soon">Coming soon!!</p>
+          <summary>Introduction</summary>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/OSKRiVQrvIM?rel=0&vq=hd1080" allowfullscreen></iframe>
+          </div>
+        </details>
+
+        <details class="video-details">
+          <summary>Messages & Perpectives</summary>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/2fnEVMA_NZ4?rel=0&vq=hd1080" allowfullscreen></iframe>
+          </div>
         </details>
       </section>
 
@@ -231,6 +300,43 @@
           </div>
         </details>
       </section>
+
+		<div class="section-bar"></div>
+		<section id="algorithm" class="section">
+		  <h3>Algorithm</h3>
+		  <div class="algorithm-content">
+		    <!-- Colonne gauche : image parfaitement centrée -->
+		    <div class="algorithm-text">
+		      <img 
+		        src="https://rawcdn.githack.com/merce-fra/PELCA/Release_PELCA_v1.4/Images/Algorithm/Figure1.png" 
+		        alt="Figure 1: Algorithm flowchart" 
+		        class="example-image"
+		      />
+		    </div>
+		    <!-- Colonne droite : texte + bouton -->
+		    <div class="algorithm-info">
+		      <p class="description">
+		        The PELCA algorithm is based on the concept of Replacement Unit (RU). It represents the maximum level of modularity of the system that can be dismantled and replaced; for example, a RU can be an integrated module or a discrete component (assuming they can be dismantled). When a RU is replaced, its age is reset to zero. <br>Consider the example of an inverter in Figure 1: in case (a), the inverter has 6 RUs, allowing to replace a specific power switch individually. In contrast, case (b) consists of a single RU-inverter, meaning that if a fault occurs, the entire system must be replaced. 
+		      </p>
+		      <a 
+		        href="https://github.com/merce-fra/PELCA_internal/blob/main/Details/Algorithm.md" 
+		        target="_blank" 
+		        class="btn-more-info"
+		      >
+		        More Information
+		      </a>
+		    </div>
+		  </div>
+		</section>
+        <details class="video-details">
+          <summary>Watch the video</summary>
+		  <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/3C1492zglvs?rel=0&vq=hd1080" allowfullscreen></iframe>
+          </div>
+        </details>
+
+
+
 
       <div class="section-bar"></div>
       <section id="exemple-onduleur" class="section">
