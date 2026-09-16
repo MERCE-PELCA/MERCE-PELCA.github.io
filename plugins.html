@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="qB7MZzRbN-OQLLU3OXkuDCu5ByE9jwiSipl_wP4SXSw" />
+  <meta name="description" content="Explore the complementary plugins available for PELCA." />
+  <meta name="theme-color" content="#7f82bc" />
+  <title>PELCA — Plugins</title>
+  <link rel="icon" type="image/png" href="icons/first_image.png" />
+  <link rel="apple-touch-icon" href="icons/first_image.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="PELCA" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="msapplication-TileImage" content="icons/first_image.png" />
+  <meta name="msapplication-TileColor" content="#7f82bc" />
+  <link rel="stylesheet" href="assets/pelca.css" />
+  <link rel="stylesheet" href="assets/pages.css" />
+  <script src="assets/pelca.js" defer></script>
+</head>
+<body class="official-site detail-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="PELCA home"><img src="icons/first_image.png" width="36" height="36" alt="" /><span>PELCA</span></a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a class="nav-home" href="index.html">Home</a>
+          <a class="resource-publications" href="publications.html">Publications</a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class="resource-github" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer">Software: PELCA <span aria-hidden="true">↗</span></a>
+          <a class="resource-plugins" href="plugins.html" aria-current="page">PELCA Plugins</a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class="resource-mooc" href="mooc.html">MOOC</a>
+        </nav>
+        <a class="header-cta newsletter-cta" href="https://forms.office.com/e/TFM0s2G8ew" target="_blank" rel="noopener noreferrer" aria-label="PELCA newsletter" title="Newsletter"><svg class="newsletter-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m3 7 9 6 9-6" /></svg><span class="newsletter-label">Newsletter</span></a>
+        <details class="mobile-nav">
+          <summary aria-label="Open navigation"><span></span><span></span></summary>
+          <nav aria-label="Mobile navigation">
+            <a class="nav-home" href="index.html">Home</a>
+            <a class="resource-publications" href="publications.html">Publications</a>
+            <a class="resource-github nav-group-start" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer">Software: PELCA <span aria-hidden="true">↗</span></a>
+            <a class="resource-plugins" href="plugins.html" aria-current="page">PELCA Plugins</a>
+            <a class="resource-mooc nav-group-start" href="mooc.html">MOOC</a>
+            <a class="nav-group-start" href="https://forms.office.com/e/TFM0s2G8ew" target="_blank" rel="noopener noreferrer">Newsletter</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main">
+      <section class="detail-intro section-wrap" aria-labelledby="plugins-title">
+        <p class="eyebrow">COMPLEMENTARY TOOLS FOR PELCA 2.0</p>
+        <h1 id="plugins-title">PELCA <span class="gradient-text">plugins.</span></h1>
+        <p>PELCA is complemented by a range of plugins. You can find the available plugins below.</p>
+      </section>
+
+      <section class="plugin-directory section-wrap" aria-label="Available PELCA plugins">
+        <article class="plugin-card" id="manufacturing">
+          <span class="plugin-label">MANUFACTURING EVALUATOR <span>1.0</span></span>
+          <h2>Assess manufacturing impacts.</h2>
+          <p>Compute the environmental impacts of silicon IGBT manufacturing using a configurable inventory model.</p>
+          <ul class="plugin-capabilities"><li>Adjust die dimensions, wafer parameters and manufacturing yields.</li><li>Explore wafer fab location, electricity mix and process assumptions.</li><li>Feed the manufacturing impact results into PELCA.</li></ul>
+          <div class="plugin-actions"><a class="button button-primary" href="https://github.com/merce-fra/PELCA/tree/main/Plugins/PELCA_ManufacturingEvaluator" target="_blank" rel="noopener noreferrer">Get the plugin <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/merce-fra/PELCA/blob/main/Plugins/PELCA_ManufacturingEvaluator/PELCAManufacturingEvaluator_Instructions.md" target="_blank" rel="noopener noreferrer">Instructions <span aria-hidden="true">↗</span></a></div>
+        </article>
+        <article class="plugin-card" id="reliability">
+          <span class="plugin-label">RELIABILITY EVALUATOR <span>1.0</span></span>
+          <h2>Model component reliability.</h2>
+          <p>Estimate reliability parameters for the main replaceable units of power converters, based on their operating profiles.</p>
+          <ul class="plugin-capabilities"><li>Evaluate fans, capacitor banks, inverter power modules and rectifier stages.</li><li>Account for operating conditions and applicable failure and ageing models.</li><li>Transfer reliability and replacement inputs into PELCA.</li></ul>
+          <div class="plugin-actions"><a class="button button-primary" href="https://github.com/merce-fra/PELCA/tree/main/Plugins/PELCA_ReliabilityEvaluator" target="_blank" rel="noopener noreferrer">Get the plugin <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/merce-fra/PELCA/blob/main/Plugins/PELCA_ReliabilityEvaluator/README.md" target="_blank" rel="noopener noreferrer">Instructions <span aria-hidden="true">↗</span></a></div>
+        </article>
+      </section>
+
+    </main>
+
+    <footer class="site-footer section-wrap">
+      <p>© 2025–2026 <a href="#" data-traffic-link>Mitsubishi Electric R&amp;D Centre Europe</a> · All rights reserved</p>
+    </footer>
+  </div>
+</body>
+</html>

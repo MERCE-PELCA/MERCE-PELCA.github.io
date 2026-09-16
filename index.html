@@ -2,460 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="google-site-verification" content="qB7MZzRbN-OQLLU3OXkuDCu5ByE9jwiSipl_wP4SXSw" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PELCA - Power Electronics Life Cycle Assessment</title>
-
-  <!-- ————————— PWA : icônes et couleurs ————————— -->
-  <!-- Favicon desktop -->
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/first_image.png" />
-  <!-- Icône iOS “Add to Home Screen” -->
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/first_image.png" />
-  <!-- Couleur de la barre d’adresse Chrome (Android) -->
+  <meta name="google-site-verification" content="qB7MZzRbN-OQLLU3OXkuDCu5ByE9jwiSipl_wP4SXSw" />
+  <meta name="description" content="PELCA 2.0 is here. Assess the environmental impacts, life cycle costs and maintenance downtime of power-electronic systems. Explore the MOOC, publications and plugins." />
   <meta name="theme-color" content="#7f82bc" />
-  <!-- iOS full‑screen -->
+  <title>PELCA — Power Electronics Life Cycle Assessment</title>
+  <link rel="icon" type="image/png" href="icons/first_image.png" />
+  <link rel="apple-touch-icon" href="icons/first_image.png" />
+  <link rel="manifest" href="manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="PELCA" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <!-- Manifest Android -->
-  <link rel="manifest" href="manifest.json" />
-  <!-- Windows tile -->
   <meta name="msapplication-TileImage" content="icons/first_image.png" />
   <meta name="msapplication-TileColor" content="#7f82bc" />
-  <!-- ———————————————————————————————— -->
-
-  <style>
-    :root {
-      --gradient-from: #7f82bc; /* PELCA violet */
-      --gradient-to:   #e2a3b6; /* PELCA rose */
-      --text:      #1d1d1f;
-      --secondary: #6e6e73;
-      --download-btn: var(--gradient-from);
-      --doc-btn:   #6e6e73;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-               Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      --logo-card-w: 180px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font); color: var(--text);
-    }
-    .floating-window {
-      background: #fff; border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      max-width: 800px; width: 90%; padding: 40px;
-    }
-    .logo-top {
-      display: block; margin: 0 auto 10px;
-      max-width: 500px; height: auto;
-    }
-    .links {
-      display: flex; justify-content: space-around;
-      flex-wrap: wrap; gap: 40px; margin-bottom: 40px;
-    }
-    .link-item { text-align: center; width: 80px; }
-    .link-item img {
-      width: 48px; height: 48px;
-      transition: opacity .2s;
-    }
-    .link-item img:hover { opacity: .7; }
-    .icon-label { margin-top: 8px; font-size: .9rem; }
-
-    .site-intro {
-      margin: 0 0 32px;            /* keep close to logo, a bit more air below */
-      font-size: 0.98rem;
-      line-height: 1.65;
-      color: var(--secondary);
-      text-align: justify;
-      font-style: italic;
-      background: #f6f6f7;         /* light grey bubble */
-      border: 1px solid #ececf1;   /* subtle border */
-      border-radius: 12px;         /* rounded corners */
-      padding: 10px 14px;          /* inner spacing */
-    }
-    .links-dock {
-      background: linear-gradient(#ffffff, #ffffff) padding-box,
-                  linear-gradient(135deg, var(--gradient-from), var(--gradient-to)) border-box;
-      border: 2px solid transparent;
-      border-radius: 16px;
-      padding: 14px 18px; /* compensate 2px border */
-      box-shadow: 0 6px 18px rgba(0,0,0,.06);
-      margin-bottom: 40px;
-    }
-    .links-dock .links {
-      margin-bottom: 0; /* avoid double spacing now that the dock has padding */
-    }
-    .links-dock .link-item img {
-      transition: transform .25s cubic-bezier(.2,.7,.3,1), opacity .2s, filter .25s;
-      will-change: transform;
-    }
-    .links-dock .link-item img:hover {
-      transform: translateY(-6px) scale(1.12);
-      opacity: .9;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,.18));
-    }
-
-    main h2 {
-      font-size: 1.8rem; margin-bottom: 16px;
-      border-bottom: 1px solid #e2e2e7; padding-bottom: 4px;
-    }
-    .example-item {
-      display: flex; align-items: flex-start;
-      gap: 20px; padding: 20px 0;
-    }
-    .example-item + .example-item {
-      border-top: 1px solid #e2e2e7;
-    }
-    .example-image {
-      flex: 0 0 25%; border-radius: 8px;
-      object-fit: cover; max-height: 100px;
-    }
-    .example-content { flex: 1; }
-    .example-content h3 {
-      margin-bottom: 6px; font-size: 1.1rem; font-weight: bold;
-    }
-    .example-content p {
-      color: var(--secondary); font-size: .95rem; line-height: 1.4;
-    }
-    .example-actions {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-    }
-    .example-actions a {
-      flex: 1;
-      display: inline-block;
-      text-align: center;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: .9rem;
-      text-decoration: none;
-      transition: opacity .2s;
-      color: #fff;
-    }
-    .btn-download { background: var(--download-btn); }
-    .btn-download:hover { opacity: .8; }
-    .btn-doc { background: var(--doc-btn); }
-    .btn-doc:hover { opacity: .8; }
-
-    .btn-thesis {
-      display: inline-block;
-      margin-top: 2px;
-      padding: 2px 4px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
-      color: #fff !important;
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn-thesis:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    footer {
-      text-align: center; margin-top: 30px;
-      border-top: 1px solid #d2d2e2; padding-top: 20px;
-      color: var(--secondary); font-size: .85rem;
-    }
-
-    /* —————————————— R E S P O N S I V E —————————————— */
-    @media (max-width: 600px) {
-      .logo-top {
-        max-width: 80%; margin-bottom: 20px;
-      }
-      .example-item {
-        flex-direction: column;
-        align-items: center; text-align: center;
-      }
-      .example-image {
-        flex: none; max-width: 60%; margin-bottom: 12px;
-      }
-      .example-actions {
-        flex-direction: column;
-      }
-      .example-actions a {
-        width: 100%; margin: 4px 0;
-      }
-    }
-
-    /* masquer le style des liens dans le footer */
-    footer a {
-      color: inherit;         /* hérite de la couleur du footer */
-      text-decoration: none;  /* pas de soulignement */
-      cursor: default;        /* curseur normal */
-    }
-    footer a:hover {
-      color: inherit;         /* même couleur au survol */
-      text-decoration: none;  /* toujours pas de soulignement */
-    }
-
-    /* ———————————— C O L L A B O R A T I O N ———————————— */
-    .collab-section { margin-top: 48px; }
-    .collab-section h2 { font-size: 1.8rem; margin-bottom: 12px; border-bottom: 1px solid #e2e2e7; padding-bottom: 4px; }
-    .collab-intro {
-      color: var(--text);
-      margin-bottom: 16px;
-      line-height: 1.6;
-      text-align: justify;
-      font-size: 1.05rem;
-    }
-    .collab-muted { color: var(--secondary); }
-    .collab-note {
-      color: var(--text);
-      font-size: 1.05rem;
-      line-height: 1.6;
-      margin-top: 12px;
-      text-align: justify;
-    }
-
-    .collab-bubble {
-      background: #f6f6f7;
-      border: 1px solid #ececf1;
-      border-radius: 16px;
-      padding: 10px 18px 22px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.04);
-      margin-top: 12px;
-    }
-
-    .tabs { display: inline-flex; gap: 6px; padding: 6px; }
-    .tab-btn {
-      border: none; background: transparent; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; color: var(--secondary);
-      transition: background .2s, box-shadow .2s, color .2s;
-    }
-    .tab-btn:hover { background: #ffffff; box-shadow: 0 1px 6px rgba(0,0,0,.06); color: var(--text); }
-    .tab-btn.active { background: linear-gradient(135deg, #fff, #fff) padding-box,
-                       linear-gradient(135deg, var(--gradient-from), var(--gradient-to)) border-box;
-                       border: 2px solid transparent; color: var(--text); }
-    .tab-btn.static.big {
-      background: linear-gradient(#ffffff, #ffffff) padding-box,
-                  linear-gradient(135deg, var(--gradient-from), var(--gradient-to)) border-box;
-      border: 2px solid transparent;
-      border-radius: 999px;
-      color: var(--text);
-    }
-    .tabs.as-title {
-      margin: 20px 0 12px;
-      display: flex;
-      justify-content: center;
-    }
-    .collab-bubble .collab-block:first-child .tabs.as-title {
-      margin-top: 4px;   /* was 20px via the generic rule */
-      margin-bottom: 10px;
-    }
-    .tab-btn.static { pointer-events: none; user-select: none; }
-    .tab-btn.big { font-size: 1.05rem; padding: 10px 18px; border-radius: 999px; }
-
-    .tab-panels { margin-top: 18px; }
-    .tab-panel { display: block; }
-    .tab-panel[hidden] { display: none; }
-
-    .logo-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      width: 100%;
-    }
-    .logo-card {
-      width: 100%;
-      display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #ececf1; border-radius: 12px; padding: 18px; height: 110px;
-      transition: transform .2s ease, box-shadow .25s ease; text-decoration: none;
-    }
-    .logo-card img { max-width: 100%; max-height: 70px; object-fit: contain; filter: grayscale(10%); opacity: .95; transition: transform .2s ease, filter .2s ease, opacity .2s ease; }
-    .logo-card:hover { transform: translateY(-6px); box-shadow: 0 10px 22px rgba(0,0,0,.12); }
-    .logo-card:hover img { transform: scale(1.03); filter: grayscale(0%); opacity: 1; }
-
-    @media (max-width: 600px) {
-      .tabs { width: 100%; justify-content: space-between; }
-      .logo-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/pelca.css" />
+  <link rel="stylesheet" href="assets/pages.css" />
+  <script src="assets/pelca.js" defer></script>
 </head>
-<body>
-
-  <div class="floating-window">
-    <!-- Logo PELCA -->
-    <img
-      src="https://rawcdn.githack.com/merce-fra/PELCA/Release_PELCA_v1.3/Images/first_image.png"
-      alt="PELCA Logo"
-      class="logo-top"
-    />
-
-    <div class="links-dock">
-      <div class="links">
-        <!-- GitHub -->
-        <div class="link-item">
-          <a href="https://github.com/merce-fra/PELCA"
-             target="_blank" rel="noopener noreferrer" title="GitHub">
-            <img
-              src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg"
-              alt="GitHub"
-            />
-          </a>
-          <div class="icon-label">GitHub</div>
-        </div>
-
-        <!-- Publications -->
-        <div class="link-item">
-          <a href="https://merce-pelca.github.io/publications.html"
-             rel="noopener noreferrer" title="Publications">
-            <img
-              src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/book-open.svg"
-              alt="Publications"
-            />
-          </a>
-          <div class="icon-label">Publications</div>
-        </div>
-
-        <!-- Mooc -->
-        <div class="link-item">
-          <a href="https://merce-pelca.github.io/mooc.html"
-             rel="noopener noreferrer" title="Mooc">
-            <img
-              src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/graduation-cap.svg"
-              alt="Mooc"
-            />
-          </a>
-          <div class="icon-label">Mooc</div>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="link-item">
-          <a href="https://forms.office.com/e/TFM0s2G8ew"
-             target="_blank" rel="noopener noreferrer" title="Newsletter">
-            <img
-              src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg"
-              alt="Newsletter"
-            />
-          </a>
-          <div class="icon-label">Newsletter</div>
-        </div>
+<body class="official-site compact-home">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="PELCA home"><img src="icons/first_image.png" width="36" height="36" alt="" /><span>PELCA</span></a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a class="resource-publications" href="publications.html">Publications</a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class="resource-github" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer">Software: PELCA <span aria-hidden="true">↗</span></a>
+          <a class="resource-plugins" href="plugins.html">PELCA Plugins</a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class="resource-mooc" href="mooc.html">MOOC</a>
+        </nav>
+        <a class="header-cta newsletter-cta" href="https://forms.office.com/e/TFM0s2G8ew" target="_blank" rel="noopener noreferrer" aria-label="PELCA newsletter" title="Newsletter"><svg class="newsletter-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m3 7 9 6 9-6" /></svg><span class="newsletter-label">Newsletter</span></a>
+        <details class="mobile-nav">
+          <summary aria-label="Open navigation"><span></span><span></span></summary>
+          <nav aria-label="Mobile navigation">
+            <a class="resource-publications" href="publications.html">Publications</a>
+            <a class="resource-github nav-group-start" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer">Software: PELCA <span aria-hidden="true">↗</span></a>
+            <a class="resource-plugins" href="plugins.html">PELCA Plugins</a>
+            <a class="resource-mooc nav-group-start" href="mooc.html">MOOC</a>
+            <a class="nav-group-start" href="https://forms.office.com/e/TFM0s2G8ew" target="_blank" rel="noopener noreferrer">Newsletter</a>
+          </nav>
+        </details>
       </div>
-    </div>
-
-      <p class="site-intro">
-        <b>PELCA</b> (Power Electronics Life Cycle Assessment) is an open‑source tool that quantifies the impacts of power‑electronics systems across their entire life cycle. It natively supports circular‑economy practices such preventive and curative maintenance. With PELCA, you can model products and scenarios (manufacturing, use, and end-of-life) and obtain environmental and economic impact results to guide design and decision‑making.
-      </p>
-
-    <main>
-      <h2>Implemented Examples</h2>
-
-      <div class="example-item">
-        <img
-          src="https://www.mouser.fr/images/infineon/lrg/FS820R08A6P2BBPSA1_SPL_t.jpg"
-          alt="Inverter - FS820R08A6P2B"
-          class="example-image"
-        />
-        <div class="example-content">
-          <h3>Inverter – FS820R08A6P2B</h3>
-          <p>A power-electronic system comprising an IGBT power module (750 V, 820 A) and a DC‑bus filter capacitor.</p>
-          <div class="example-actions">
-            <a
-              href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.4/Input%20example/inputExample_v1.4.0_PowerModuleAndCapacitor.xlsx"
-              download
-              class="btn-download">
-              Download Example
-            </a>
-            <a
-              href="https://github.com/merce-fra/PELCA/blob/Release_PELCA_v1.4/Input%20example/ExampleOverview.md"
-              target="_blank" rel="noopener noreferrer"
-              class="btn-doc">
-              Documentation
-            </a>
-          </div>
+    </header>
+    <main id="main">
+      <section class="launch section-wrap" aria-labelledby="launch-title">
+        <h1 class="launch-wordmark" id="launch-title"><img src="assets/pelca-wordmark.png" width="1708" height="578" alt="PELCA — Power Electronics Life Cycle Assessment" /></h1>
+        <p class="launch-version"><strong>PELCA 2.0</strong><span>is now available.</span></p>
+        <p class="launch-description">Assess the environmental impacts, life cycle costs of your power-electronic systems.</p>
+        <div class="launch-actions">
+          <button class="about-trigger" type="button" aria-haspopup="dialog" aria-controls="about-pelca"><span class="about-question" aria-hidden="true">?</span>What is PELCA?</button>
+          <a class="button button-primary launch-cta" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer" aria-label="Discover PELCA 2.0 on GitHub"><img class="launch-github-logo" src="assets/github-invertocat.svg" width="23" height="23" alt="" />Discover PELCA 2.0 <span aria-hidden="true">↗</span></a>
         </div>
-      </div>
+      </section>
 
-      <div class="example-item">
-        <img
-          src="https://www.microchip.com/content/dam/mchp/mrt-dam/products/dpm/220714-dpm-photo-e-fuse-technology-demonstrator-board-angle-transparent.jpg"
-          alt="E-Fuse – MSCDR-EFUSE-006"
-          class="example-image"/>
-
-        <div class="example-content">
-          <h3>E-Fuse – MSCDR-EFUSE-006</h3>
-          <p>DC static circuit breaker – SiC MOSFET transistor protection. 800 V/30 A demonstrator; 2 × MSC025SMA120B4.</p>
-          <div class="example-actions">
-            <a
-              href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.4/Input%20example/inputExample_v1.4.0_Efuse.xlsx"
-              download
-              class="btn-download">
-              Download Example
-            </a>
-            <a
-              href="https://github.com/merce-fra/PELCA/blob/Release_PELCA_v1.4/Input%20example/ExampleOverview.md"
-              target="_blank" rel="noopener noreferrer"
-              class="btn-doc">
-              Documentation
-            </a>
-          </div>
+      <nav class="home-dock section-wrap" aria-label="Explore PELCA resources">
+        <div class="home-resource-group">
+          <a class="home-resource resource-publications" href="publications.html"><span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v15M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1Z" /></svg></span><strong>Publications</strong><span>Read the research</span><span class="home-resource-arrow" aria-hidden="true">↗</span></a>
         </div>
-      </div>
-
-      <section id="collaboration" class="collab-section" aria-labelledby="collab-title">
-        <h2 id="collab-title">Collaboration</h2>
-        <p class="collab-intro">
-          <span class="collab-muted">PELCA project is coordinated by Mitsubishi Electric R&D Centre Europe. It was initiated as a follow-up of a first collaboration with ENS Rennes, SATIE Laboratory. More collaborations are welcome to contribute better to new examples and new software features. If you are interested, please : </span> <a href="mailto:pelca@fr.merce.mee.com" target="_blank" rel="noopener" class="btn-thesis">contact us</a>
-        </p>
-        <p class="collab-note" style="text-align:center; font-size:1.15rem; margin-top:24px;">
-          <b>Institutes having contributed to PELCA:</b>
-        </p>
-
-        <div class="collab-bubble">
-          <div class="collab-block">
-            <!--
-            <div class="tabs as-title" aria-hidden="true">
-              <button class="tab-btn static big">Industrial</button>
+        <div class="home-resource-group">
+          <a class="home-resource resource-github" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer"><span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16" /></svg></span><strong>GitHub PELCA</strong><span>Get the software</span><span class="home-resource-arrow" aria-hidden="true">↗</span></a>
+          <a class="home-resource resource-plugins" href="plugins.html"><span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 3v5M16 3v5M6 8h12v4a6 6 0 0 1-12 0V8ZM12 18v4" /></svg></span><strong>Plugins</strong><span>Extend your analysis</span><span class="home-resource-arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="home-resource-group">
+          <section class="home-resource resource-mooc home-mooc" aria-labelledby="mooc-title">
+            <span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5-10-5Zm4 2v6c4 3 8 3 12 0v-6M22 9v8" /></svg></span>
+            <div class="home-mooc-copy">
+              <p class="home-mooc-eyebrow">TRAINING RESOURCES</p>
+              <h2 id="mooc-title">PELCA <span class="gradient-text">MOOC</span></h2>
+              <p class="home-mooc-description">Video tutorials on PELCA and its assessment methods.</p>
             </div>
-            -->
-              <div class="logo-grid">
-              <a class="logo-card" href="https://www.mitsubishielectric-rce.eu" target="_blank" rel="noopener" title="Mitsubishi Electric R&D Centre Europe">
-                <img src="https://clusif.fr/wp-content/uploads/2016/07/Mitsubishi.png" alt="Mitsubishi Electric R&D Centre Europe" />
-              </a>
+            <div class="home-mooc-topics" role="group" aria-label="MOOC topics">
+              <a href="mooc.html#installation">Installation</a>
+              <a href="mooc.html#algorithm">Algorithm</a>
+              <a href="mooc.html#exemple-onduleur">Examples</a>
+            </div>
+            <a class="home-mooc-opening" href="mooc.html">Open the MOOC <span aria-hidden="true">↗</span></a>
+          </section>
+        </div>
+      </nav>
 
-              <a class="logo-card" href="https://www.ens-rennes.fr" target="_blank" rel="noopener" title="ENS Rennes">
-                <img src="https://fr.mathworks.com/academia/tah-portal/ens-rennes-30965034/_jcr_content/schoolLogo.adapt.full.medium.png/1741685499409.png" alt="ENS Rennes" />
-              </a>
-
-              <a class="logo-card" href="https://satie.ens-paris-saclay.fr/fr" target="_blank" rel="noopener" title="SATIE">
-                <img src="https://inspe.u-pec.fr/medias/photo/satie-logo-237x156_1484123881476-png?ID_FICHE=423767" alt="SATIE" />
-              </a>
-
-              <a class="logo-card" href="https://www.ietr.fr" target="_blank" rel="noopener" title="IETR">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBUR7dQ59DHzU_gMpT7YjnMPYPYDTRHlXieQ&s" alt="IETR" />
-              </a>
-
+      <section class="home-examples section-wrap" id="examples" aria-labelledby="examples-title">
+        <div class="home-section-heading"><h2 class="home-section-title" id="examples-title">Application examples</h2></div>
+        <article class="home-example reveal" aria-labelledby="inverter-title">
+          <img class="home-example-photo" src="assets/inverter.jpg" width="1280" height="1176" alt="Infineon FS820R08A6P2B IGBT power module" loading="lazy" />
+          <div class="home-example-content">
+            <h3 id="inverter-title">Inverter <span>FS820R08A6P2B</span></h3>
+            <p>A power-electronic system comprising an IGBT power module (750 V, 820 A) and a DC-bus filter capacitor.</p>
+            <div class="home-example-links">
+              <a class="example-action example-download" href="https://github.com/merce-fra/PELCA/raw/refs/heads/main/PELCA%20datasets/PowerModuleAndCapacitor/PELCA_v2.0.0_PowerModuleAndCapacitor.xlsm" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" /></svg>Download inventory <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+              <a class="example-action example-video video-upcoming" href="mooc.html#exemple-onduleur"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="m10 8 6 4-6 4Z" /></svg>Video <span class="video-status">Coming soon</span><span class="example-action-arrow" aria-hidden="true">↗</span></a>
             </div>
           </div>
+        </article>
+        <article class="home-example reveal" aria-labelledby="efuse-title">
+          <img class="home-example-photo" src="assets/efuse.jpg" width="200" height="200" alt="Microchip MSCDR-EFUSE-006 E-Fuse demonstrator board" loading="lazy" />
+          <div class="home-example-content">
+            <h3 id="efuse-title">E-Fuse <span>MSCDR-EFUSE-006</span></h3>
+            <p>DC static circuit breaker – SiC MOSFET transistor protection. 800 V/30 A demonstrator; 2 × MSC025SMA120B4.</p>
+            <div class="home-example-links">
+              <a class="example-action example-download" href="https://github.com/merce-fra/PELCA/raw/refs/heads/main/PELCA%20datasets/E-Fuse/PELCA_v2.0.0_Efuse.xlsm" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" /></svg>Download inventory <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+              <a class="example-action example-video" href="https://www.youtube.com/watch?v=xrPsHAtA64E" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="m10 8 6 4-6 4Z" /></svg>Watch the video <span class="video-status">V1.4</span><span class="example-action-arrow" aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </section>
 
+      <section class="home-contributors section-wrap" id="collaboration" aria-labelledby="contributors-title">
+        <div class="home-section-heading">
+          <h2 class="home-section-title" id="contributors-title">Contributors</h2>
+          <a class="example-action contributor-contact" href="mailto:pelca@fr.merce.mee.com"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-6 4V7a3 3 0 0 1 3-3ZM7 9h10M7 13h6" /></svg>contact us <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <p>PELCA project is coordinated by Mitsubishi Electric R&amp;D Centre Europe. It was initiated as a follow-up of a first collaboration with ENS Rennes, SATIE Laboratory. More collaborations are welcome to contribute better to new examples and new software features. If you are interested, please contact us.</p>
+        <div class="contributors-grid">
+          <a class="contributor" href="https://www.mitsubishielectric-rce.eu" target="_blank" rel="noopener noreferrer" aria-label="Mitsubishi Electric R&amp;D Centre Europe website"><img src="assets/mitsubishi.png" width="1293" height="563" alt="Mitsubishi Electric" loading="lazy" /></a>
+          <a class="contributor" href="https://www.ens-rennes.fr" target="_blank" rel="noopener noreferrer" aria-label="ENS Rennes website"><img src="assets/ens-rennes.png" width="1185" height="465" alt="ENS Rennes" loading="lazy" /></a>
+          <a class="contributor" href="https://satie.ens-paris-saclay.fr/fr" target="_blank" rel="noopener noreferrer" aria-label="SATIE website"><img src="assets/satie.png" width="237" height="156" alt="SATIE" loading="lazy" /></a>
+          <a class="contributor" href="https://www.ietr.fr" target="_blank" rel="noopener noreferrer" aria-label="IETR website"><img src="assets/ietr.png" width="403" height="125" alt="IETR" loading="lazy" /></a>
+          <a class="contributor" href="https://www.acsysteme.com/fr/" target="_blank" rel="noopener noreferrer" aria-label="Acsystème website"><img src="assets/acsysteme.png" width="276" height="160" alt="Acsystème" loading="lazy" /></a>
         </div>
       </section>
     </main>
 
-    <footer>
-      &copy; 2025 – 
-      <a href="#" onclick="openTraffic(); return false;">Mitsubishi Electric R&D Centre Europe</a>
-      – 
-      <a href="https://merce-pelca.github.io/contact.html" rel="noopener">All rights reserved</a>
+    <footer class="site-footer section-wrap">
+      <p>© 2025–2026 <a href="#" data-traffic-link>Mitsubishi Electric R&amp;D Centre Europe</a> · All rights reserved</p>
     </footer>
-
   </div>
-
-  <script>
-    function openTraffic() {
-      const pwd = prompt("Enter password to access Traffic:");
-      if (pwd === "MERCE2025") {
-        window.open("https://thomtech0.github.io", "_blank", "noopener");
-      } else if (pwd !== null) {
-        alert("Incorrect password.");
-      }
-    }
-
-  </script>
+  <dialog class="about-dialog" id="about-pelca" aria-labelledby="about-title" aria-describedby="about-description">
+    <form method="dialog" class="about-close-form"><button class="about-close" type="submit" aria-label="Close presentation" autofocus><span aria-hidden="true">×</span></button></form>
+    <h2 id="about-title">What is PELCA?</h2>
+    <div id="about-description">
+      <p><strong>PELCA</strong> (Power Electronics Life Cycle Assessment) is an open‑source tool that quantifies the impacts of power‑electronics systems across their entire life cycle.</p>
+      <p>It natively supports circular‑economy practices such as preventive and curative maintenance.</p>
+      <p>With PELCA, you can model products and scenarios (manufacturing, use, and end-of-life) and obtain environmental and economic impact results to guide design and decision‑making.</p>
+    </div>
+  </dialog>
 </body>
 </html>

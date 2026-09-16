@@ -1,436 +1,301 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PELCA - MOOC</title>
-  <style>
-    :root {
-      --gradient-from: #7f82bc;
-      --gradient-to:   #e2a3b6;
-      --text:           #1d1d1f;
-      --secondary:      #6e6e73;
-      --download-btn: var(--gradient-from);
-      --doc-btn:   #6e6e73;
-      --font:          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
-      display: flex; justify-content: center; align-items: center;
-      font-family: var(--font); color: var(--text);
-    }
-    .floating-window {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      max-width: 900px;
-      width: 90%;
-      padding: 40px;
-      overflow-y: auto;
-      max-height: 90vh;
-    }
-    .logo-top { display: block; margin: 0 auto 20px; max-width: 400px; height: auto; }
-    .btn-back-container { text-align: center; margin-bottom: 30px; }
-    .btn-back {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; border-radius: 16px;
-      background-color: #f2f2f7; color: var(--text);
-      font-size: 1rem; text-decoration: none;
-      transition: background-color .2s, color .2s;
-    }
-    .btn-back:hover { background-color: #e2a3b6; color: #fff; }
-    main h2 {
-      font-size: 2rem; margin-bottom: 16px;
-      border-bottom: 2px solid #e2e2e7;
-      padding-bottom: 8px; text-align: center;
-    }
-    .section { margin: 40px 0; }
-
-    .section-bar {
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, var(--gradient-from), var(--gradient-to));
-      margin: 40px 0;
-      border-radius: 4px;
-    }
-
-    .section h3 {
-      font-size: 1.6rem; margin-bottom: 12px;
-      text-align: center; color: var(--gradient-from);
-    }
-    .description {
-      font-size: 1rem;
-      color: var(--secondary);
-      text-align: justify;
-      line-height: 1.5;
-      max-width: 800px;
-      margin: 0 auto 16px;
-    }
-
-    .example-item {
-      display: flex; align-items: flex-start;
-      gap: 20px; padding: 20px 0;
-    }
-    .example-item + .example-item {
-      border-top: 1px solid #e2e2e7;
-    }
-    .example-image {
-      flex: 0 0 25%; border-radius: 8px;
-      object-fit: cover; max-height: 100px;
-    }
-    .example-content { flex: 1; }
-    .example-content h3 {
-      margin-bottom: 6px; font-size: 1.1rem; font-weight: bold;
-    }
-    .example-content p {
-      color: var(--secondary); font-size: .95rem; line-height: 1.4;
-    }
-    .example-actions {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-    }
-    .example-actions a {
-      flex: 1;
-      display: inline-block;
-      text-align: center;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: .9rem;
-      text-decoration: none;
-      transition: opacity .2s;
-      color: #fff;
-    }
-    .btn-download { background: var(--download-btn); }
-    .btn-download:hover { opacity: .8; }
-    .btn-doc { background: var(--doc-btn); }
-    .btn-doc:hover { opacity: .8; }
-
-
-    details.video-details {
-      max-width: 800px; margin: 0 auto 20px;
-    }
-    /* Style des onglets vidéo */
-    details.video-details summary {
-      list-style: none; display: block; width: 100%;
-      background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
-      color: #fff; font-size: 1rem; font-weight: 600;
-      padding: 12px 16px; border: none; border-radius: 8px;
-      cursor: pointer; transition: background 0.3s ease, transform 0.2s ease;
-      text-align: center;
-    }
-    details.video-details summary::-webkit-details-marker,
-    details.video-details summary::marker { display: none; }
-    details.video-details summary::before {
-      content: "▶"; display: inline-block; margin-right: 8px;
-      transition: transform .2s;
-    }
-    details.video-details[open] summary::before { transform: rotate(90deg); }
-    details.video-details summary:hover { transform: translateY(-2px); }
-    .video-container {
-      position: relative; padding-bottom: 56.25%; height: 0;
-      overflow: hidden; border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 12px;
-    }
-    .video-container iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
-    }
-    footer {
-      text-align: center; margin-top: 30px;
-      border-top: 1px solid #d2d2d7; padding-top: 20px;
-      color: var(--secondary); font-size: .85rem;
-    }
-
-    /* Style pour la classe coming-soon */
-    .coming-soon {
-      font-size: 2rem;
-      font-weight: bold;
-      color: var(--secondary);
-      text-align: center;
-      margin-top: 40px;
-      border: 2px solid var(--secondary);
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 80%;
-      margin: 40px auto 0;
-    }
-
-    footer a { color: inherit; text-decoration: none; cursor: default; }
-
-    /* —————————————— R E S P O N S I V E —————————————— */
-    @media (max-width: 600px) {
-      .logo-top {
-        max-width: 80%;  /* logo plus petit */
-        margin-bottom: 20px;
-      }
-      .example-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .example-image {
-        flex: none;
-        max-width: 60%;
-        margin-bottom: 12px;
-      }
-      .example-actions {
-        flex-direction: column;
-      }
-      .example-actions a {
-        width: 100%;
-        margin: 4px 0;
-      }
-    }
-
-	/* Container 2 colonnes pour Algorithm */ 
-	  .algorithm-info {
-	    flex: 1;
-	    min-width: 250px;
-	  }
-	  .btn-more-info {
-	    display: inline-block;
-	    padding: 8px 16px;
-	    border-radius: 4px;
-	    background: var(--gradient-from);
-	    color: #fff;
-	    text-decoration: none;
-	    font-size: 0.9rem;
-	    transition: opacity 0.2s;
-	  }
-	  .btn-more-info:hover {
-	    opacity: 0.8;
-	  }
-
-/* 1. Assurez-vous que le conteneur est en flex et centre verticalement ses enfants */
-#algorithm .algorithm-content {
-  display: flex;
-  align-items: center;   /* centre verticalement l’image et le bloc texte */
-  gap: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* 2. Colonnes de largeur égale (ou ajustez la proportion si besoin) */
-#algorithm .algorithm-text,
-#algorithm .algorithm-info {
-  flex: 1;               /* chaque colonne prend 50% de l’espace */
-}
-
-/* 3. Centre l’image dans sa colonne */
-#algorithm .algorithm-text {
-  display: flex;
-  justify-content: center;  /* centre horizontalement */
-  align-items: center;      /* centre verticalement */
-}
-
-/* 4. Adapte la taille de l’image */
-/* Override pour agrandir le schéma dans #algorithm */
-#algorithm .algorithm-text .example-image {
-  flex: none;           /* désactive le flex-basis à 25% */
-  max-height: none;     /* enlève la limite de hauteur */
-  width: 400px;         /* taille fixe ou adapte à ta convenance */
-  height: auto;         /* conserve les proportions */
-  object-fit: contain;  /* ne recadre pas l’image */
-}
-
-
-/* 5. (Optionnel) Pour que la colonne texte garde un bon padding */
-#algorithm .algorithm-info {
-  padding: 0 10px;
-}
-
-@media (max-width: 600px) {
-  /* Pour la section Algorithm, on passe en colonne sur mobile */
-  #algorithm .algorithm-content {
-    flex-direction: column;
-    align-items: center;      /* centre horizontalement l’image et le texte */
-    text-align: center;       /* centre le texte sous l’image */
-  }
-  /* On ajoute un petit marge au texte sous l’image */
-  #algorithm .algorithm-info {
-    padding-top: 20px;
-  }
-}
-
-
-  </style>
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="google-site-verification" content="qB7MZzRbN-OQLLU3OXkuDCu5ByE9jwiSipl_wP4SXSw" />
+  <meta name="description" content="Video tutorials on PELCA, installation, assessment methods and power-electronics application examples." />
+  <meta name="theme-color" content="#7f82bc" />
+  <title>PELCA — MOOC</title>
+  <link rel="icon" type="image/png" href="icons/first_image.png" />
+  <link rel="apple-touch-icon" href="icons/first_image.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="PELCA" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="msapplication-TileImage" content="icons/first_image.png" />
+  <meta name="msapplication-TileColor" content="#7f82bc" />
+  <link rel="stylesheet" href="assets/pelca.css" />
+  <link rel="stylesheet" href="assets/pages.css" />
+  <link rel="stylesheet" href="assets/mooc.css" />
+  <script src="assets/pelca.js" defer></script>
+  <script src="assets/mooc.js" defer></script>
 </head>
-<body>
-  <div class="floating-window">
-    <img src="https://rawcdn.githack.com/merce-fra/PELCA/Release_PELCA_v1.4/Images/first_image.png" alt="PELCA Logo" class="logo-top" />
-    <div class="btn-back-container">
-      <a href="https://merce-pelca.github.io" class="btn-back" title="Retour">← Retour</a>
-    </div>
-    <main>
-      <h2>MOOC PELCA</h2>
-      <p class="info" style="font-size:0.95rem; margin-top:8px; font-style: italic;">
-        Videos were recorded in French but are also available in English via YouTube’s instant translation. Once the video has started, open Settings &gt; Audio track and select “English”.
-      </p>
-
-      <section id="presentation" class="section">
-        <h3>Introduction to PELCA</h3>
-        <p class="description">PELCA (Power Electronics Life Cycle Assessment) is an open-source project aimed at assessing the environmental impact over the life cycle of modular and diagnosable power electronics systems. The integration of modularity and diagnosability aligns with circular economy principles, promoting practices such as maintenance, repair and reuse. This project provides a tool to calculate the environmental impacts associated with the manufacturing, usage, and replacement of power electronics products.</p>
-        <details class="video-details">
-          <summary>Introduction</summary>
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/OSKRiVQrvIM?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
+<body class="official-site detail-page mooc-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="PELCA home"><img src="icons/first_image.png" width="36" height="36" alt="" /><span>PELCA</span></a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a class="nav-home" href="index.html">Home</a>
+          <a class="resource-publications" href="publications.html">Publications</a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class="resource-github" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer">Software: PELCA <span aria-hidden="true">↗</span></a>
+          <a class="resource-plugins" href="plugins.html">PELCA Plugins</a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class="resource-mooc" href="mooc.html" aria-current="page">MOOC</a>
+        </nav>
+        <a class="header-cta newsletter-cta" href="https://forms.office.com/e/TFM0s2G8ew" target="_blank" rel="noopener noreferrer" aria-label="PELCA newsletter" title="Newsletter"><svg class="newsletter-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m3 7 9 6 9-6" /></svg><span class="newsletter-label">Newsletter</span></a>
+        <details class="mobile-nav">
+          <summary aria-label="Open navigation"><span></span><span></span></summary>
+          <nav aria-label="Mobile navigation">
+            <a class="nav-home" href="index.html">Home</a>
+            <a class="resource-publications" href="publications.html">Publications</a>
+            <a class="resource-github nav-group-start" href="https://github.com/merce-fra/PELCA" target="_blank" rel="noopener noreferrer">Software: PELCA <span aria-hidden="true">↗</span></a>
+            <a class="resource-plugins" href="plugins.html">PELCA Plugins</a>
+            <a class="resource-mooc nav-group-start" href="mooc.html" aria-current="page">MOOC</a>
+            <a class="nav-group-start" href="https://forms.office.com/e/TFM0s2G8ew" target="_blank" rel="noopener noreferrer">Newsletter</a>
+          </nav>
         </details>
-
-        <details class="video-details">
-          <summary>Messages & Perpectives</summary>
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/2fnEVMA_NZ4?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
-        </details>
+      </div>
+    </header>
+    <main id="main">
+      <section class="detail-intro mooc-intro section-wrap" aria-labelledby="mooc-title">
+        <p class="eyebrow">TRAINING RESOURCES</p>
+        <h1 id="mooc-title">PELCA <span class="gradient-text">MOOC.</span></h1>
+        <p>Video tutorials on PELCA, its assessment methods and application examples.</p>
+        <ul class="mooc-facts" aria-label="Course overview"><li>10 videos</li><li>5 topics</li><li>PELCA V1.4 &amp; V2.0</li></ul>
       </section>
 
-      <div class="section-bar"></div>
-      <section id="installation" class="section">
-        <h3>Installation</h3>
-        <p class="description">Follow the step-by-step installation of PELCA on your computer.</p>
-        <details class="video-details">
-          <summary>Windows</summary>
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/ybwgHxSj2F8?si=oNDHVMSUBNl4mpif?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
-        </details>
-        <details class="video-details">
-          <summary>MacOS</summary>
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/CEszrfRF-E8?si=k-HWqd1NacOyJD__?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
-        </details>
-        <details class="video-details">
-          <summary>Linux</summary>
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/yWc86YApPBY?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
-        </details>
-      </section>
+      <nav class="mooc-index section-wrap" aria-label="MOOC topics">
+        <a href="#presentation"><span aria-hidden="true">01</span>Introduction</a>
+        <a href="#installation"><span aria-hidden="true">02</span>Installation</a>
+        <a href="#algorithm"><span aria-hidden="true">03</span>Algorithm</a>
+        <a href="#examples"><span aria-hidden="true">04</span>Examples</a>
+        <a href="#advanced-topics"><span aria-hidden="true">05</span>Advanced topics</a>
+      </nav>
 
-		<div class="section-bar"></div>
-		<section id="algorithm" class="section">
-		  <h3>Algorithm</h3>
-		  <div class="algorithm-content">
-		    <!-- Colonne gauche : image parfaitement centrée -->
-		    <div class="algorithm-text">
-		      <img 
-		        src="https://rawcdn.githack.com/merce-fra/PELCA/Release_PELCA_v1.4/Images/Algorithm/Figure1.png" 
-		        alt="Figure 1: Algorithm flowchart" 
-		        class="example-image"
-		      />
-		    </div>
-		    <!-- Colonne droite : texte + bouton -->
-		    <div class="algorithm-info">
-		      <p class="description">
-		        The PELCA algorithm is based on the concept of Replacement Unit (RU). It represents the maximum level of modularity of the system that can be dismantled and replaced; for example, a RU can be an integrated module or a discrete component (assuming they can be dismantled). When a RU is replaced, its age is reset to zero. <br>Consider the example of an inverter in Figure 1: in case (a), the inverter has 6 RUs, allowing to replace a specific power switch individually. In contrast, case (b) consists of a single RU-inverter, meaning that if a fault occurs, the entire system must be replaced. 
-		      </p>
-		      <a 
-		        href="https://github.com/merce-fra/PELCA_internal/blob/main/Details/Algorithm.md" 
-		        target="_blank" 
-		        class="btn-more-info"
-		      >
-		        More Information
-		      </a>
-		    </div>
-		  </div>
-		</section>
-        <details class="video-details">
-          <summary>Watch the video</summary>
-		  <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/3C1492zglvs?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
-        </details>
-
-
-
-
-      <div class="section-bar"></div>
-      <section id="exemple-onduleur" class="section">
-        <h3>Example: Inverter</h3>
-        <div class="example-item">
-          <img src="https://www.mouser.fr/images/infineon/lrg/FS820R08A6P2BBPSA1_SPL_t.jpg" alt="Inverter - FS820R08A6P2B" class="example-image"/>
-          <div class="example-content">
-            <h3>Inverter – FS820R08A6P2B</h3>
-            <p>A power-electronic system including an IGBT power module (750 V, 820 A) and a DC‑bus filter capacitor.</p>
-            <div class="example-actions">
-              <a href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.4/Input%20example/inputExample_v1.4.0_PowerModuleAndCapacitor.xlsx" download class="btn-download">Download Example</a>
-              <a href="https://github.com/merce-fra/PELCA/blob/Release_PELCA_v1.4/Input%20example/ExampleOverview.md" target="_blank" rel="noopener noreferrer" class="btn-doc">Documentation</a>
-            </div>
-          </div>
+      <aside class="mooc-language section-wrap" aria-label="Video versions and languages">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h12M9 3v2M5 8c2 4 5 7 9 9M13 5c-1 6-4 10-10 13m11 3 4-10 4 10m-7-3h6" /></svg>
+        <div>
+          <p>The tutorials labelled <strong>PELCA V1.4</strong> were recorded using that version. The new installation video covers <strong>PELCA V2.0</strong>.</p>
+          <p>The V1.4 videos were recorded in French. In YouTube Settings, check the available audio tracks and subtitles and select English when available.</p>
         </div>
-        <details class="video-details">
-          <summary>Watch the video</summary>
-          <p class="coming-soon">Coming soon!!</p>
-        </details>
-      </section>
+      </aside>
 
-      <div class="section-bar"></div>
-      <section id="exemple-dc-breaker" class="section">
-        <h3>Example: DC Breaker</h3>
-        <div class="example-item">
-          <img src="https://www.microchip.com/content/dam/mchp/mrt-dam/products/dpm/220714-dpm-photo-e-fuse-technology-demonstrator-board-angle-transparent.jpg" alt="E-Fuse – MSCDR-EFUSE-006" class="example-image"/>
-          <div class="example-content">
-            <h3>E-Fuse – MSCDR-EFUSE-006</h3>
-            <p>DC static circuit breaker – SiC MOSFET transistor protection. 800 V/30 A demonstrator; 2 × MSC025SMA120B4.</p>
-            <div class="example-actions">
-              <a href="https://github.com/merce-fra/PELCA/raw/Release_PELCA_v1.4/Input%20example/inputExample_v1.4.0_Efuse.xlsx" download class="btn-download">Download Example</a>
-              <a href="https://github.com/merce-fra/PELCA/blob/Release_PELCA_v1.4/Input%20example/ExampleOverview.md" target="_blank" rel="noopener noreferrer" class="btn-doc">Documentation</a>
-            </div>
+      <section class="mooc-section section-wrap reveal" id="presentation" aria-labelledby="introduction-title">
+        <div class="home-section-heading"><h2 class="home-section-title" id="introduction-title">Introduction to PELCA</h2></div>
+        <p class="mooc-description">PELCA (Power Electronics Life Cycle Assessment) is an open-source project aimed at assessing the environmental impacts over the life cycle of modular and diagnosable power-electronics systems. Modularity and diagnosability support circular-economy practices such as maintenance, repair and reuse. PELCA calculates the impacts associated with the manufacturing, use and replacement of power-electronics products.</p>
+        <div class="mooc-lessons">
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Introduction</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="OSKRiVQrvIM" data-video-title="Introduction"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=OSKRiVQrvIM" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
           </div>
+        </details>
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Messages &amp; perspectives</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="2fnEVMA_NZ4" data-video-title="Messages &amp; perspectives"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=2fnEVMA_NZ4" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
         </div>
-        <details class="video-details">
-          <summary>Watch the video</summary>
-		  <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/xrPsHAtA64E?rel=0&vq=hd1080" allowfullscreen></iframe>
-          </div>
-        </details>
       </section>
 
-      <div class="section-bar"></div>
-
-      <section id="presentation" class="section">
-        <h3>Advanced Topics</h3>
-          <details class="video-details">
-            <summary>Eco-Sizing DC Breakers: LCA & Economic Impact – GDR DEFIE</summary>
-		    <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/5qpP8sgywt0?rel=0&vq=hd1080" allowfullscreen></iframe>
+      <section class="mooc-section section-wrap reveal" id="installation" aria-labelledby="installation-title">
+        <div class="home-section-heading">
+          <h2 class="home-section-title" id="installation-title">Installation</h2>
+          <a class="example-action example-documentation" href="https://github.com/merce-fra/PELCA/blob/main/README.md#installation-guide" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v15M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1Z" /></svg>Installation guide <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <p class="mooc-description">Follow the PELCA V2.0 installation tutorial for Windows, macOS and Linux. Refer to the GitHub guide for the current installation steps.</p>
+        <div class="mooc-lessons mooc-current-installation">
+          <details class="mooc-lesson mooc-installation-current" name="mooc-videos" id="installation-v2" open>
+            <summary>
+              <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+              <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Installation for Windows, macOS and Linux</span><span class="mooc-lesson-version">PELCA V2.0</span></span>
+              <span class="mooc-watch-label">Watch video</span>
+              <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+            </summary>
+            <div class="mooc-lesson-content">
+              <p class="mooc-installation-description">One installation tutorial for Windows, macOS and Linux.</p>
+              <div class="mooc-player" data-video-id="mlTMtS905uI" data-video-title="PELCA V2.0 installation — Windows, macOS and Linux"></div>
+              <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=mlTMtS905uI" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
             </div>
           </details>
-
-        <details class="video-details">
-          <summary>Influence des modèles de vieillissement sur les impacts environnementaux pour les composants d’électronique de puissance</summary>
-		  <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/VgfLGr0DD3A?rel=0&vq=hd1080" allowfullscreen></iframe>
+        </div>
+        <details class="mooc-archive">
+          <summary><span class="mooc-archive-title">PELCA V1.4 installation<span>Previous tutorials by operating system</span></span><svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></summary>
+          <div class="mooc-archive-content">
+            <p class="mooc-description">Installation tutorials recorded with PELCA V1.4, organised by operating system.</p>
+            <div class="mooc-lessons">
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Windows</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="ybwgHxSj2F8" data-video-title="Windows"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=ybwgHxSj2F8" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">macOS</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="CEszrfRF-E8" data-video-title="macOS"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=CEszrfRF-E8" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Linux</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="yWc86YApPBY" data-video-title="Linux"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=yWc86YApPBY" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+            </div>
           </div>
         </details>
       </section>
 
+      <section class="mooc-section section-wrap reveal" id="algorithm" aria-labelledby="algorithm-title">
+        <div class="home-section-heading"><h2 class="home-section-title" id="algorithm-title">Algorithm</h2></div>
+        <div class="mooc-algorithm">
+          <figure>
+            <img src="assets/pelca-replaceable-units.svg" width="2547" height="1387" alt="An inverter modelled as six replaceable power switches or as one replaceable unit." loading="lazy" />
+            <figcaption>Two levels of modularity for an inverter: six replaceable units (a), or one replaceable unit (b).</figcaption>
+          </figure>
+          <div>
+            <p class="mooc-description">A Replaceable Unit (RU) is a part of the system that can be dismantled and replaced during maintenance. When an RU is replaced, its age is reset to zero.</p>
+            <p class="mooc-description">In case (a), six RUs allow individual power switches to be replaced. In case (b), the inverter is a single RU, so the whole system must be replaced when a fault occurs.</p>
+            <a class="example-action example-documentation" href="https://github.com/merce-fra/PELCA/blob/main/documentations/Algorithm.md" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v15M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1Z" /></svg>Algorithm documentation <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="mooc-lessons">
+        <details class="mooc-lesson mooc-lesson-current" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading">
+              <span class="mooc-lesson-title">The PELCA algorithm</span>
+              <span class="mooc-lesson-meta"><span class="mooc-lesson-version">PELCA V2.0</span><span class="mooc-current-badge"><span aria-hidden="true">✓</span> Current version</span></span>
+            </span>
+            <span class="mooc-watch-label">View status</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <p class="mooc-coming-soon"><span class="video-status">Coming soon</span>The PELCA V2.0 algorithm video will be available soon.</p>
+          </div>
+        </details>
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">The PELCA algorithm</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="3C1492zglvs" data-video-title="The PELCA algorithm"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=3C1492zglvs" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+        </div>
+      </section>
 
+      <section class="mooc-section section-wrap reveal" id="examples" aria-labelledby="examples-title">
+        <div class="home-section-heading"><h2 class="home-section-title" id="examples-title">Application examples</h2></div>
+        <p class="mooc-description">Explore two power-electronics systems with their inventories and documentation.</p>
+        <article class="mooc-example" id="exemple-onduleur" aria-labelledby="inverter-title">
+          <div class="home-example">
+            <img class="home-example-photo" src="assets/inverter.jpg" width="1280" height="1176" alt="Infineon FS820R08A6P2B IGBT power module" loading="lazy" />
+            <div class="home-example-content">
+              <h3 id="inverter-title">Inverter <span>FS820R08A6P2B</span></h3>
+              <p>A power-electronic system comprising an IGBT power module (750 V, 820 A) and a DC-bus filter capacitor.</p>
+              <div class="home-example-links">
+                <a class="example-action example-download" href="https://github.com/merce-fra/PELCA/raw/refs/heads/main/PELCA%20datasets/PowerModuleAndCapacitor/PELCA_v2.0.0_PowerModuleAndCapacitor.xlsm" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" /></svg>Download inventory <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+                <a class="example-action example-documentation" href="https://github.com/merce-fra/PELCA/blob/main/documentations/PELCA_Instructions.md#input-excel-file" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v15M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1Z" /></svg>Documentation <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+          <p class="mooc-pending"><span class="video-status">Coming soon</span>Inverter video tutorial.</p>
+        </article>
+        <article class="mooc-example" id="exemple-dc-breaker" aria-labelledby="efuse-title">
+          <div class="home-example">
+            <img class="home-example-photo" src="assets/efuse.jpg" width="200" height="200" alt="Microchip MSCDR-EFUSE-006 E-Fuse demonstrator board" loading="lazy" />
+            <div class="home-example-content">
+              <h3 id="efuse-title">E-Fuse <span>MSCDR-EFUSE-006</span></h3>
+              <p>DC static circuit breaker – SiC MOSFET transistor protection. 800 V/30 A demonstrator; 2 × MSC025SMA120B4.</p>
+              <div class="home-example-links">
+                <a class="example-action example-download" href="https://github.com/merce-fra/PELCA/raw/refs/heads/main/PELCA%20datasets/E-Fuse/PELCA_v2.0.0_Efuse.xlsm" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" /></svg>Download inventory <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+                <a class="example-action example-documentation" href="https://github.com/merce-fra/PELCA/blob/main/documentations/PELCA_Instructions.md#input-excel-file" target="_blank" rel="noopener noreferrer"><svg class="example-action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v15M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1Z" /></svg>Documentation <span class="example-action-arrow" aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="mooc-lessons">
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Example: DC breaker / E-Fuse</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="xrPsHAtA64E" data-video-title="Example: DC breaker / E-Fuse"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=xrPsHAtA64E" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+          </div>
+        </article>
+      </section>
+
+      <section class="mooc-section section-wrap reveal" id="advanced-topics" aria-labelledby="advanced-title">
+        <div class="home-section-heading"><h2 class="home-section-title" id="advanced-title">Advanced topics</h2></div>
+        <div class="mooc-lessons">
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title">Eco-Sizing DC Breakers: LCA &amp; Economic Impact – GDR DEFIE</span><span class="mooc-lesson-version">PELCA V1.4</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="5qpP8sgywt0" data-video-title="Eco-Sizing DC Breakers: LCA &amp; Economic Impact – GDR DEFIE"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=5qpP8sgywt0" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+        <details class="mooc-lesson" name="mooc-videos">
+          <summary>
+            <span class="mooc-play"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 9 6-9 6Z" /></svg></span>
+            <span class="mooc-lesson-heading"><span class="mooc-lesson-title" lang="fr">Influence des modèles de vieillissement sur les impacts environnementaux pour les composants d’électronique de puissance</span></span>
+            <span class="mooc-watch-label">Watch video</span>
+            <svg class="mooc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="mooc-lesson-content">
+            <div class="mooc-player" data-video-id="VgfLGr0DD3A" data-video-title="Influence des modèles de vieillissement sur les impacts environnementaux pour les composants d’électronique de puissance"></div>
+            <a class="text-link mooc-youtube" href="https://www.youtube.com/watch?v=VgfLGr0DD3A" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+        </div>
+      </section>
     </main>
 
-    <footer>
-      &copy; 2025 – <a href="#" onclick="openTraffic(); return false;">
-        Mitsubishi Electric R&D Centre Europe
-      </a> – <a href="https://merce-pelca.github.io/contact.html" rel="noopener" >All rights reserved</a>
+    <footer class="site-footer section-wrap">
+      <p>© 2025–2026 <a href="#" data-traffic-link>Mitsubishi Electric R&amp;D Centre Europe</a> · All rights reserved</p>
     </footer>
   </div>
-
-  <script>
-    function openTraffic() {
-      const pwd = prompt("Enter password to access Traffic:");
-      if (pwd === "MERCE2025") {
-        window.open("https://thomtech0.github.io", "_blank", "noopener");
-      } else if (pwd !== null) {
-        alert("Incorrect password.");
-      }
-    }
-  </script>
 </body>
 </html>
