@@ -1,0 +1,106 @@
+/* PELCA — bouton lune/soleil et mode nuit, communs à toutes les pages.
+   Le thème est posé sur <html data-theme="light|dark"> par assets/theme.js. */
+
+/* ---------- Bouton dans l'en-tête, à droite de « Newsletter » ---------- */
+.theme-toggle {
+  flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--text);
+  cursor: pointer; transition: border-color .2s, background .2s;
+}
+.theme-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .icon-sun, :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+@media (hover: hover) and (pointer: fine) { .theme-toggle:hover { border-color: var(--violet); background: var(--surface); } }
+@media print { .theme-toggle { display: none; } }
+/* Petits écrans : Newsletter réduit à son icône pour laisser la place aux boutons langue et thème */
+@media (max-width: 600px) {
+  .official-site .newsletter-cta { width: 44px; padding-inline: 0; gap: 0; justify-content: center; }
+  .official-site .newsletter-label { display: none; }
+}
+
+/* ---------- Langue : « EN » ou « FR » (langue en cours), discret, après le mode nuit ; un clic bascule ---------- */
+.lang-switch {
+  flex: none; display: grid; place-items: center; min-width: 32px; height: 44px; padding: 0 4px;
+  border: 0; background: none; color: var(--secondary); cursor: pointer;
+  font: inherit; font-size: .8125rem; font-weight: 600; letter-spacing: .06em; transition: color .2s;
+}
+.lang-switch span { display: none; }
+:root:not([lang="fr"]) .lang-switch [data-lang="en"], :root[lang="fr"] .lang-switch [data-lang="fr"] { display: block; }
+.lang-switch:hover { color: var(--text); text-decoration: underline; text-underline-offset: 5px; }
+@media print { .lang-switch { display: none; } }
+
+/* ---------- Couleurs de nuit ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #1b1b26; --card: #232331; --surface: #2a2a3a; --line: #363648;
+  --text: #f2f2f7; --secondary: #b9b9c8; --header: rgba(27, 27, 38, .86);
+  --accent: #b3b5e6; --violet: #9da0dc;
+}
+/* pages.css redéfinit ces couleurs sur .official-site */
+:root[data-theme="dark"] .official-site { --secondary: #b9b9c8; --accent: #b3b5e6; background: linear-gradient(135deg, #2c2c48, #4a3247); }
+:root[data-theme="dark"] .official-site .site-shell { box-shadow: 0 24px 80px #00000055; }
+.official-site, .official-site .site-shell, .site-header { transition: background-color .4s, color .4s; }
+
+/* Commun : en-tête, titres, boutons */
+:root[data-theme="dark"] .gradient-text { background-image: linear-gradient(105deg, #a3a6e6 15%, #d79bc4 62%, #f0b3c3); }
+:root[data-theme="dark"] .nav-divider { background: var(--line); }
+:root[data-theme="dark"] .newsletter-cta { --newsletter-fill: var(--card); color: var(--text); }
+:root[data-theme="dark"] .newsletter-cta:hover { --newsletter-fill: var(--surface); }
+:root[data-theme="dark"] .button-primary { background: #6b6fb4; }
+:root[data-theme="dark"] .resource-publications { --resource-tint: #2e2630; --resource-border: #4a3a46; --resource-accent: #d9a7bf; }
+:root[data-theme="dark"] .resource-github { --resource-tint: #272842; --resource-border: #3d3f62; --resource-accent: #b3b5e6; }
+:root[data-theme="dark"] .resource-plugins { --resource-tint: #2a2740; --resource-border: #423c5e; --resource-accent: #c2b3e6; }
+:root[data-theme="dark"] .resource-mooc { --resource-tint: #31282a; --resource-border: #4d3d3c; --resource-accent: #e0b0aa; }
+
+/* Accueil */
+:root[data-theme="dark"] .compact-home::before { background: radial-gradient(ellipse at 75% 20%, #5a3d4e 0, transparent 48%), linear-gradient(125deg, #2c2c48 15%, #4a3247 85%); }
+:root[data-theme="dark"] .launch-cta { background: linear-gradient(110deg, #3b3d6b 0%, #4f4267 38%, #66425a 65%, #3b3d6b 100%); background-size: 240% 100%; color: #f2f2f7; }
+:root[data-theme="dark"] .about-trigger { border-color: var(--line); background: #232331c9; }
+:root[data-theme="dark"] .about-trigger:hover { background: var(--surface); }
+:root[data-theme="dark"] .about-question { background: linear-gradient(120deg, #3b3d6b, #5a3d4e); }
+:root[data-theme="dark"] .about-dialog { border-color: var(--line); background: var(--card); }
+:root[data-theme="dark"] .about-close { background: var(--surface); }
+:root[data-theme="dark"] .about-close:hover { background: var(--line); }
+:root[data-theme="dark"] .home-resource.home-mooc { background: linear-gradient(110deg, #29273d, #33283a) padding-box, linear-gradient(110deg, #7f82bc 0%, #e2a3b6 35%, #7f82bc 65%, #e2a3b6 100%) border-box; background-size: 100% 100%, 250% 100%; }
+:root[data-theme="dark"] .home-mooc .home-resource-icon { background: #ffffff14; }
+:root[data-theme="dark"] .home-mooc-topics a { border-color: var(--line); background: #ffffff0d; }
+:root[data-theme="dark"] .home-mooc-topics a:hover { background: var(--surface); border-color: var(--violet); }
+:root[data-theme="dark"] .home-mooc-opening { border-color: var(--line); background: var(--card); }
+:root[data-theme="dark"] .home-mooc-opening:hover { background: var(--surface); }
+:root[data-theme="dark"] .example-action { border-color: var(--line); background: linear-gradient(115deg, #2a2a42, #312a3c); }
+:root[data-theme="dark"] .example-video { border-color: #4a3a46; background: #2e2630; color: #d9a7bf; }
+:root[data-theme="dark"] .contributor-contact { border-color: #4a3a46; background: #2e2630; color: #e2b6cb; }
+/* Logos partenaires : on garde le fond blanc pour leurs couleurs */
+:root[data-theme="dark"] .contributor { border-color: var(--line); }
+
+/* MOOC */
+:root[data-theme="dark"] .mooc-index a { border-color: var(--line); background: var(--surface); }
+:root[data-theme="dark"] .mooc-lesson { border-color: var(--line); background: #242433; }
+:root[data-theme="dark"] .mooc-lesson[open] { background: var(--card); border-color: #4a4a66; }
+:root[data-theme="dark"] .mooc-play { border-color: #4a4a66; background: linear-gradient(120deg, #2f3052, #3d2f45); }
+:root[data-theme="dark"] .mooc-current-badge, :root[data-theme="dark"] .mooc-installation-current .mooc-lesson-version { border-color: #5a5a80; background: #2f3052; }
+:root[data-theme="dark"] .mooc-lesson-current, :root[data-theme="dark"] .mooc-installation-current { border-color: #5a5a80; background: linear-gradient(115deg, #2a2a45, #362a3c); }
+:root[data-theme="dark"] .mooc-lesson-current[open], :root[data-theme="dark"] .mooc-installation-current[open] { border-color: #5a5a80; background: linear-gradient(115deg, #262638, #2f2734); }
+:root[data-theme="dark"] .mooc-coming-soon, :root[data-theme="dark"] .mooc-playback-note, :root[data-theme="dark"] .mooc-pending { border-color: var(--line); background: var(--surface); }
+:root[data-theme="dark"] .mooc-youtube-fallback { border-color: var(--line); background: linear-gradient(115deg, #2a2a42, #312a3c); }
+:root[data-theme="dark"] .mooc-page .example-documentation { background: var(--card); border-color: var(--line); }
+:root[data-theme="dark"] .mooc-tool-card { border-color: var(--line); background: linear-gradient(115deg, #262638, #2f2734); }
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .mooc-index a:hover { border-color: var(--violet); background: var(--line); }
+  :root[data-theme="dark"] .mooc-lesson:hover { border-color: #5a5a80; }
+  :root[data-theme="dark"] .publication-card:hover { border-color: #5a5a80; }
+}
+
+/* Publications */
+:root[data-theme="dark"] .publication-toolbar { border-color: var(--line); background: linear-gradient(110deg, #262638, #2f2734); }
+:root[data-theme="dark"] .publication-toolbar input, :root[data-theme="dark"] .publication-toolbar select { border-color: #44445a; background: var(--card); }
+:root[data-theme="dark"] .publication-toolbar input::placeholder { color: #9a9aaa; }
+:root[data-theme="dark"] .publication-types button { --resource-border: var(--line); --resource-bg: var(--card); }
+:root[data-theme="dark"] .publication-types button > span { background: #ffffff12; }
+:root[data-theme="dark"] .publication-card { border-color: var(--line); background: linear-gradient(150deg, var(--card), #242433); }
+:root[data-theme="dark"] .publication-card[data-type="PhD thesis"], :root[data-theme="dark"] .publication-types button[data-publication-type="PhD thesis"] { --resource-bg: #3a2a33; --resource-border: #5c4050; --resource-ink: #e6b3ca; }
+:root[data-theme="dark"] .publication-card[data-type="Scientific paper"], :root[data-theme="dark"] .publication-types button[data-publication-type="Scientific paper"] { --resource-bg: #2d2b4a; --resource-border: #48456e; --resource-ink: #c3bff0; }
+:root[data-theme="dark"] .publication-card[data-type="Presentation"], :root[data-theme="dark"] .publication-types button[data-publication-type="Presentation"] { --resource-bg: #233142; --resource-border: #3a5068; --resource-ink: #a9c8e8; }
+:root[data-theme="dark"] .publication-card[data-type="Lecture"], :root[data-theme="dark"] .publication-types button[data-publication-type="Lecture"] { --resource-bg: #22362e; --resource-border: #3a5a4c; --resource-ink: #a6d8c2; }
+:root[data-theme="dark"] .publication-types button[data-publication-type=""] { --resource-bg: linear-gradient(115deg, #3a2a33 0%, #2d2b4a 34%, #233142 67%, #22362e 100%); --resource-border: #4a4a60; --resource-ink: #d6d4e6; }
+:root[data-theme="dark"] .publication-citation > summary, :root[data-theme="dark"] .publication-copy { border-color: var(--line); background: var(--card); }
